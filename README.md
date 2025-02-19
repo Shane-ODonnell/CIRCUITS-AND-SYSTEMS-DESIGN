@@ -10,20 +10,20 @@ Processing (the client/laptop) would continuously check (once per loop) to see i
 
 when the buggy wanted to tell Laptop something, (like the current velocity or distance travelled)
   it would first send a char to let laptop know what information to expect.
-    So as an example of how this might look, if the buggy wanted to tell the buggy it had stopped for an obstacle it would send 's'
+    
+So as an example of how this might look, if the buggy wanted to tell the buggy it had stopped for an obstacle it would send 's'
     upon receiving 's' the laptop knew to display the current velocity as 0 and flash the on screen light for obstacle.
+    
+  OR if the buggy sent 'u' (short for update) (as seen in the function sendUpdate(client)) the laptop knew it was about to receive an update to all the variables in a specific order so it would store the first int received as the distance travelled, then after that it would get and store the obstacleDistance, then the buggyVelocity and target velocity.
 
-    OR if the buggy sent 'u' (short for update) (as seen in the function sendUpdate(client)) the laptop knew it was about to receive an update to all the variables in a specific order
-    so it would store the first int received as the distance travelled, then after that it would get and store the obstacleDistance, then the buggyVelocity and target velocity.
-
-    this worked well because it made sure that all the integers being sent were stored where they were meant to be. 
-      And some very simple processing functions could handle all the networking and ensure no data leaks
+  this worked well because it made sure that all the integers being sent were stored where they were meant to be. 
+    And some very simple processing functions could handle all the networking and ensure no data leaks
       
         data = buggy.readChar(); //read what the buggy sent and store it in "data"
         dataEval(data);          // Evaluate the Data we received and update global variables acordingly
         send();
         
-      the above is only two lines short of the loop used in the silver challenge
+  the above is only two lines short of the loop used in the silver challenge
       I am about to add the file containing these funtcions to the repo to help illustrate how the client side of things looked
       but basically dataEval would check which headsup it was given and then use the following function repeatedly to store everything where it needed to go 
       
