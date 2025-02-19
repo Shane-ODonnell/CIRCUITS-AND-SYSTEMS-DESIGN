@@ -1,7 +1,7 @@
 Welcome team.
 
 
-This is currently a trimmed version of the networking from my buggy project which I would propose we use for our porject.
+This is currently a trimmed version of the networking from my buggy project which I would propose we use for our project.
   this is why there are commented out variables such as speed, buggyV, targetV etc, aswell as references to functions which wont be relevant to this project like obstacleDist()
 
 Here is how it worked.
@@ -11,8 +11,8 @@ Processing (the client/laptop) would continuously check (once per loop) to see i
 when the buggy wanted to tell Laptop something, (like the current velocity or distance travelled)
   it would first send a char to let laptop know what information to expect.
     
-So as an example of how this might look, if the buggy wanted to tell the buggy it had stopped for an obstacle it would send 's'
-    upon receiving 's' the laptop knew to display the current velocity as 0 and flash the on screen light for obstacle.
+So as an example of how this might look, if the buggy wanted to tell the laptop it had stopped for an obstacle it would send 's'.
+    Upon receiving 's' the laptop knew to display the current velocity as 0 and flash the on screen light for obstacle.
     
   OR if the buggy sent 'u' (short for update) (as seen in the function sendUpdate(client)) the laptop knew it was about to receive an update to all the variables in a specific order so it would store the first int received as the distance travelled, then after that it would get and store the obstacleDistance, then the buggyVelocity and target velocity.
 
