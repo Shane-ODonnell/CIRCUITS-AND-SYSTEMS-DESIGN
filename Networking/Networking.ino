@@ -7,13 +7,11 @@ char pass[] = "wordpass";
 WiFiServer Buggy(5200);  // establish an instance of class WiFiServer called Buggy
 
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(9600);
 
-  WiFi.begin(ssid, pass);          //give the arduino's wifi thing the network name and password
-  IPAddress BOB = WiFi.localIP();  // establish an instance of class IPAddress called BOB and store the IP address that the WiFiServer is on
-  Serial.println(BOB);             //print out BOB (the Ip address) on the arduino serial monitor
-  Buggy.begin();                   //Tells the server to begin listening for incoming connections.
+  WiFi.begin(ssid, pass);  //give the arduino's wifi thing the network name and password
+
+  Buggy.begin();  //Tells the server to begin listening for incoming connections.
 }
 
 
@@ -24,15 +22,7 @@ void loop() {
 
   checkInput(laptop);  //function that checks for updates from the laptop and updates global vars accordingly
 
-  if (laptop.connected() && follow == false) {  //the follow condition makes sure that f is only sent if we went from not following to following
-    laptop.write("f");                          // let laptop know we are in follow mode
-    follow = true;                              // udate follow so we dont send f in two concequtive loops
-  }
-   else {
-
-    if (laptop.connected() && follow == true) {
-      laptop.write("n");
-      follow = false;
-    }
-  }
+  if (laptop.connected()) {  // let client (laptop) know that the connection has been established
+    laptop.write("T");
+  }//honestly only left this here as a remnant of the buggy code as a demo to us of available member functions for wifiClient, prolly not useful
 }
