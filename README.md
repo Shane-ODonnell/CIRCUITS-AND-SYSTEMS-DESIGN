@@ -18,12 +18,15 @@ when the buggy wanted to tell Laptop something, (like the current velocity or di
 
     this worked well because it made sure that all the integers being sent were stored where they were meant to be. 
       And some very simple processing functions could handle all the networking and ensure no data leaks
+      
         data = buggy.readChar(); //read what the buggy sent and store it in "data"
         dataEval(data);          // Evaluate the Data we received and update global variables acordingly
         send();
+        
       the above is only two lines short of the loop used in the silver challenge
       I am about to add the file containing these funtcions to the repo to help illustrate how the client side of things looked
       but basically dataEval would check which headsup it was given and then use the following function repeatedly to store everything where it needed to go 
+      
           int getInteger() {
             //if we try to read in too early it'll save as -1, so keep checking until we get the actual signal
             int NUM = -1;
