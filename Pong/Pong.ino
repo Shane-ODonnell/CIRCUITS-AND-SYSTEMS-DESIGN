@@ -12,7 +12,7 @@ bool ballInPlay = false;
 
 int width, height;  // TEMP width is a placeholder till I have the neccesary code for the screen
 
-Ball ball;
+Ball ball; //initialise an instance of the ball class (initialise a ball)
 
 void setup() {
   // put your setup code here, to run once:
@@ -27,16 +27,4 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-}
-
-
-void setupPlayers(){
-  playerH = floor(width/17.5);
-  playerW = floor(0.5* playerH);
-
-  playerX = floor(width / 35);
-  botX = width - playerX;
-
-  playerY = floor( (height + playerH) / 2 );
-  botY = playerY;
 }
