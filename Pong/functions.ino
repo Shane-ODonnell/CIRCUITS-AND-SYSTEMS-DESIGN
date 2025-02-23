@@ -3,6 +3,13 @@ void drawPong(int x, int y) {
   //code that draws the paddle in based on where the bottom right corner should be
 }  //TODO
 
+void movementPlayer() {
+}  //TODO
+
+void drawMap() {
+  //this will likely just be a line down the middle (for tha map)and also where the drawPong functions and ball.show()
+}  //TODO
+
 void setupPlayers() {
   playerH = floor(width / 17.5);
   playerW = floor(0.5 * playerH);
@@ -14,8 +21,10 @@ void setupPlayers() {
   botY = playerY;
 }
 
-void movementPlayer() {
-}  //TODO
+void showPlayers() {
+  drawPong(playerX, playerY);
+  drawPong(botX - playerW, botY);
+}
 
 bool collided() {
   int ballX = ball.getX();

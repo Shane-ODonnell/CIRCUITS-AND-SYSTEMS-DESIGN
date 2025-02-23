@@ -1,28 +1,34 @@
 
 class Ball {
 public:
-  int r = 20;  //ball size
-  int x = 60;  //intial x position
-  int y, dy, dx;
-  int count = 2;  //initial x velocity
+  int r;  //ball size
+  int x, y; // ball position
+  int dy, dx; // ball velocity components
+  int count = 2;  //count of collisions for accelerating the ball
   bool active = false;
 
-  int width, height; // temp to be repllaced later
+  int width, height; // temp to be replaced later //TODO
 
-  void start(int X, int Y, int vy, int w, int h) {
-    x = X;
-    y = Y;
+  void start(int X, int vy, int W, int H){
+    x = X + r;
+    width = W;
+    height = H;
     dy = vy;
+    r = floor(width/8);
+  } // constructor may need some work
+  
+  void spawn(int Y) {
+    y = Y;
     dx = 2;
-    width = w;
-    height = h;
-  }  //this will set the x&y of the ball, and the velocities basically the constructor
+    count = 2;
+    active = true;
+  }  //spawn ball at desired y value 
 
   void show() {  //draw the ball
     if (active) {
       //show ball at x,y with radius r
     }
-  }
+  }//TODO
 
   void update(boolean collided) {
 
