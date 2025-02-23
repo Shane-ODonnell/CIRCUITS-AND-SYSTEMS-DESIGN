@@ -20,23 +20,23 @@ void movementPlayer() {
 bool collided() {
   int ballX = ball.getX();
   int ballY = ball.getY();
-  int rad = ball.getR();
+  int rad = ball.r;  // store the current positon of the ball
 
-  if ((ballX + rad >= botX - playerW) && (ballX < botX)) {
-    if (ballY <= botY && ballY >= botY - playerH) {
+  if ((ballX + rad >= botX - playerW) && (ballX < botX)) {  //if the ball is in or at the x position for the Bot paddle
+    if (ballY <= botY && ballY >= botY - playerH) {         //if the ball is in or at the y positon of the bot paddle
       return true;
     }
-  } else if (ballX + rad >= playerX && ballX - rad <= playerX + playerW) {
-    if (ballY <= playerY && ballY >= playerY - playerH) {
+  } else if (ballX + rad >= playerX && ballX - rad <= playerX + playerW) {  // if the ball is in or at the x position of the player paddle
+    if (ballY <= playerY && ballY >= playerY - playerH) {                   // if the ball is in or at the y position of the player paddle
       return true;
     }
   }
 
-  return false;
+  return false;  // ball coords are not the same as or in contact with the coords of either paddle, no collision
 }
 
 void movementBot() {
-  int targetY, m;  // m to stpre direction
+  int targetY, m;
   int curr = botY;
 
   int Y = ball.getY();
