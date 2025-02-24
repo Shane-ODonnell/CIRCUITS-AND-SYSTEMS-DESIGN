@@ -1,13 +1,25 @@
 
 void drawPong(int x, int y) {
   //code that draws the paddle in based on where the bottom right corner should be
+  display.drawRect(x, y, playerW, playerH, SSD1306_WHITE);
 }  //TODO
 
 void movementPlayer() {
+  int temp = analogRead(A1);
+  int m = 0;
+  if (temp > 550 && playerY < height) {
+    m = 1;
+  } else if (temp < 450 && playerY > 0) {
+    m = -1;
+  }
+
+  playerY = playerY + m*vy;
+
 }  //TODO
 
 void drawMap() {
   //this will likely just be a line down the middle and at the bot and player x positions
+  display.drawRect(width / 2, 0, 5, height, SSD1306_WHITE);
 }  //TODO
 
 void setupPlayers() {
@@ -82,7 +94,7 @@ void movementBot() {
 
   //now determine which way you need to go to reach the target
 
-  if (botY <= height && botY >= playerH) {
+  if (botY <= -height && botY >= playerH) {
     botY = botY + m * vy;
   } else {
     if (botY >= height) {

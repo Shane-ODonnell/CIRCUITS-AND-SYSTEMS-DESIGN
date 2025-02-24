@@ -9,12 +9,15 @@ public:
 
   int width, height; // temp to be replaced later //TODO
 
-  void start(int X, int vy, int W, int H){
+  Adafruit_SSD1306 display;
+
+  void start(int X, int vy, int W, int H, Adafruit_SSD1306 screen){
     x = X + r;
     width = W;
     height = H;
     dy = vy;
     r = floor(width/8);
+    display = screen;
   } // constructor may need some work
   
   void spawn(int Y) {
@@ -27,6 +30,7 @@ public:
   void show() {  //draw the ball
     if (active) {
       //show ball at x,y with radius r
+      display.fillCircle(x, y, r, SSD1306_WHITE);
     }
   }//TODO
 

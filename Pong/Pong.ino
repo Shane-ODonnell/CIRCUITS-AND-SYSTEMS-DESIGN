@@ -9,21 +9,21 @@
   
 */
 
-
 #include <iostream>
+#include "screen.h"
 #include "Ball.h"
 using namespace std;
 
-int playerH;  //Height of the paddles/pongs
-int playerW;  //Width of the paddles/pongs
-int playerX, botX; //X position for player 
-int playerY, botY; //Pong y positions
+int playerH;        //Height of the paddles/pongs
+int playerW;        //Width of the paddles/pongs
+int playerX, botX;  //X position for player
+int playerY, botY;  //Pong y positions
 
-int vy = 4;  // TODO calibrate an appropraite vy
+int vy = 2;  // TODO calibrate an appropraite vy
 bool ballInPlay = false;
 
 int width = 128;
-int height = 64;  // TEMP width is a placeholder till I have the neccesary code for the screen //TODO
+int height = 32;  // TEMP width is a placeholder till I have the neccesary code for the screen //TODO
 
 Ball ball;  //initialise an instance of the ball class (initialise a ball)
 
@@ -31,15 +31,25 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
 
+  setupOLED();
+
   setupPlayers();
-  ball.start(playerX + playerW, vy, width, height);
+  ball.start(playerX + playerW, vy, width, height, display);
   drawMap();
   //Serial.println(ball.getX());  // test line
 }
 
 void loop() {
+  display.clearDisplay();  // Clear the screen ONCE per loop
   int ballX = ball.getX();
   bool collision = false;
+
+  if (!ballInPlay) {
+    click = digitalRead(2);
+    if (click) {
+      spawnBall();
+    }
+  }
 
   drawMap();
 
@@ -47,7 +57,7 @@ void loop() {
   movementBot();
 
   showPlayers();
-
+  display.display();  // Only update the screen ONCE
   collision = collided();
 
   if (ballInPlay) {
@@ -65,4 +75,21 @@ void spawnBall() {
     ball.spawn(floor(playerY - 0.5 * playerH));
     ballInPlay = true;
   }
-}  // TODO (function finished but needs to be used)
+}
+
+void setupOLED() {
+  //***************************************************************************************
+  if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for (;;)
+      ;
+  }
+
+  display.clearDisplay();
+  display.display();
+  pinMode(A0, INPUT);
+  pinMode(A1, INPUT);
+  pinMode(2, INPUT_PULLUP);
+
+  //***************************************************************************************
+}
