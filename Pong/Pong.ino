@@ -10,20 +10,20 @@
 */
 
 
-
 #include <iostream>
 #include "Ball.h"
 using namespace std;
 
-int playerH;
-int playerW;  //= floor(0.5 * playerH)
-int playerX, botX;
-int playerY, botY;
+int playerH;  //Height of the paddles/pongs
+int playerW;  //Width of the paddles/pongs
+int playerX, botX; //X position for player 
+int playerY, botY; //Pong y positions
 
 int vy = 4;  // TODO calibrate an appropraite vy
 bool ballInPlay = false;
 
-int width, height;  // TEMP width is a placeholder till I have the neccesary code for the screen //TODO
+int width = 128;
+int height = 64;  // TEMP width is a placeholder till I have the neccesary code for the screen //TODO
 
 Ball ball;  //initialise an instance of the ball class (initialise a ball)
 
@@ -65,4 +65,4 @@ void spawnBall() {
     ball.spawn(floor(playerY - 0.5 * playerH));
     ballInPlay = true;
   }
-}  // TODO
+}  // TODO (function finished but needs to be used)

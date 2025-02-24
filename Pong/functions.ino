@@ -7,7 +7,7 @@ void movementPlayer() {
 }  //TODO
 
 void drawMap() {
-  //this will likely just be a line down the middle (for tha map)and also where the drawPong functions and ball.show()
+  //this will likely just be a line down the middle and at the bot and player x positions
 }  //TODO
 
 void setupPlayers() {
