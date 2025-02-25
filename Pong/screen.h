@@ -9,5 +9,15 @@
 #define SCREEN_ADDRESS 0x3C  // Change to 0x3D for some displays
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-int click = 0;
 //***************************************************************************************
+
+void setupOLED() {
+  if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for (;;)
+      ;
+  }
+
+  display.clearDisplay();
+  display.display();
+}

@@ -1,26 +1,28 @@
 
 void drawPong(int x, int y) {
   //code that draws the paddle in based on where the bottom right corner should be
-  display.drawRect(x, y, playerW, playerH, SSD1306_WHITE);
-}  //TODO
+  display.fillRect(x, y, playerW, playerH, SSD1306_WHITE);
+}
 
 void movementPlayer() {
-  int temp = analogRead(A1);
+  int temp = analogRead(stickY);
   int m = 0;
   if (temp > 550 && playerY < height) {
     m = 1;
-  } else if (temp < 450 && playerY > 0) {
+  } else if (temp < 450 && playerY > playerH) {
     m = -1;
   }
 
-  playerY = playerY + m*vy;
-
-}  //TODO
+  playerY = playerY + m * vy;
+}
 
 void drawMap() {
   //this will likely just be a line down the middle and at the bot and player x positions
-  display.drawRect(width / 2, 0, 5, height, SSD1306_WHITE);
-}  //TODO
+  //display.drawLine(playerX, 0, playerX, height, SSD1306_WHITE);
+  //display.drawLine(botX, 0, botX, height, SSD1306_WHITE);
+
+  display.drawLine(width / 2, 0, width / 2, height, SSD1306_WHITE);
+}
 
 void setupPlayers() {
   playerH = floor(width / 17.5);
@@ -34,8 +36,8 @@ void setupPlayers() {
 }
 
 void showPlayers() {
-  drawPong(playerX, playerY);
-  drawPong(botX - playerW, botY);
+  drawPong(playerX, playerY - playerH);
+  drawPong(botX - playerW, botY - playerH);
 }
 
 bool collided() {
@@ -94,13 +96,21 @@ void movementBot() {
 
   //now determine which way you need to go to reach the target
 
-  if (botY <= -height && botY >= playerH) {
+  if (botY >= 0 && botY <= height) {
     botY = botY + m * vy;
   } else {
     if (botY >= height) {
       botY = height - 1;
     } else {
-      botY = playerH;
+      botY = 0;
     }
+  }
+}
+
+void spawnBall() {
+  // this will likely be an interrupt function which runs when the joystick is clicked
+  if (!ballInPlay) {
+    ball.spawn(floor(playerY - 0.5 * playerH));
+    ballInPlay = true;
   }
 }

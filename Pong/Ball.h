@@ -1,45 +1,46 @@
 
 class Ball {
 public:
-  int r;  //ball size
-  int x, y; // ball position
-  int dy, dx; // ball velocity components
+  int r;          //ball size
+  int x, y;       // ball position
+  int dy, dx;     // ball velocity components
   int count = 2;  //count of collisions for accelerating the ball
   bool active = false;
 
-  int width, height; // temp to be replaced later //TODO
+  int width, height;  // temp to be replaced later
 
   Adafruit_SSD1306 display;
 
-  void start(int X, int vy, int W, int H, Adafruit_SSD1306 screen){
+  void start(int X, int vy, int W, int H, Adafruit_SSD1306 screen) {
+    r = floor(width / 8);
     x = X + r;
     width = W;
     height = H;
-    dy = vy;
-    r = floor(width/8);
+    dy = 1;
+    dx = 2;
     display = screen;
-  } // constructor may need some work
-  
+  }
+
   void spawn(int Y) {
     y = Y;
-    dx = 2;
-    count = 2;
+    x = 6; // playerX + playerW + r // change to be more dynmaic later TODO
+    dy = 1;
+    count = 1;
     active = true;
-  }  //spawn ball at desired y value 
+  }  //spawn ball at desired y value
 
   void show() {  //draw the ball
     if (active) {
       //show ball at x,y with radius r
       display.fillCircle(x, y, r, SSD1306_WHITE);
     }
-  }//TODO
+  }
 
   void update(boolean collided) {
 
-    if (collided) {  // if the ball hits a paddle change direction and speed up
-      count++;       //count the number of collisions
-      dx = floor(pow(-1, count) * count);
-      //increase the pixels per frame by 1 and change the direction
+    if (collided) {  // if the ball hits a paddle change direction
+      count++;
+      dx = floor(pow(-1, count));
     }
 
     //update the position of the ball
@@ -69,3 +70,5 @@ public:
       return 0;
   }
 };  // close ball class
+
+Ball ball;  //initialise an instance of the ball class (initialise a ball)
