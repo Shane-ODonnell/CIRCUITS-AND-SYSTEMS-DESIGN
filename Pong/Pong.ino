@@ -12,37 +12,39 @@ TODO LIST
 #include "screen.h"
 #include "Ball.h"
 
-int stickY = A1;
-int clickPin = 2;
+int stickY = A1;   //pin that takes in Y value of joyStick
+int clickPin = 2;  //stick that takes in stickClicks
+
 int playerH;        //Height of the paddles/pongs
 int playerW;        //Width of the paddles/pongs
 int playerX, botX;  //X position for player
 int playerY, botY;  //Pong y positions
 
-int vy = 1;  // TODO calibrate an appropraite vy
+int vy = 1;
 bool ballInPlay = false;
-bool interrupted = false;
+bool clicked = false;
 
 int width = 128;
-int height = 32;  // TEMP width is a placeholder till I have the neccesary code for the screen //TODO
+int height = 32;
 
 //***************************************************************************************
 
 void joystickClick() {
-  interrupted = true;
-}
+  clicked = true;
+}  //interrupt function for click detection
+
 void setup() {
-  // put your setup code here, to run once:
+
   Serial.begin(9600);
 
-  setupOLED();  // screen.h
-  setupPlayers();
+  setupOLED();     // screen.h
+  setupPlayers();  //intialise global variables
 
   pinMode(stickY, INPUT);
   pinMode(clickPin, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(clickPin), joystickClick, CHANGE);
 
-  ball.start(playerX + playerW, vy, width, height, display);
+  ball.start(playerX + playerW, vy, width, height, display);  //give ball class all the information it needs.
 
   drawMap();
   //Serial.println(ball.getX());  // test line
@@ -53,28 +55,29 @@ void loop() {
   int ballX = ball.getX();
   bool collision = false;
 
-  if (interrupted) {
+  if (clicked) {
     spawnBall();
-    interrupted = false;
+    clicked = false;
   }
 
-  movementPlayer();
-  movementBot();
+  movementPlayer();  //updare playerY
+  movementBot();     //update botY
 
 
   drawMap();
   showPlayers();
 
-  collision = collided();
+  collision = collided();  //check if the ball has collided with the pongs
 
   if (ballInPlay) {
 
     if (ballX >= width || ballX <= 0) {  // if the ball leaves frame
       ballInPlay = false;                //set play to false so that ball can be "spawned"
-      ball.active = false;
+      ball.active = false;               //dont show ball
     }
-    ball.update(collision);
+
+    ball.update(collision);  //update postion of and show ball
   }
 
-  display.display();  // Only update the screen ONCE
+  display.display();  // Update the screen
 }

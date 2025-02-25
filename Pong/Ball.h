@@ -16,15 +16,15 @@ public:
     x = X + r;
     width = W;
     height = H;
-    dy = 1;
+    dy = vy;
     dx = 2;
     display = screen;
   }
 
-  void spawn(int Y) {
+  void spawn(int Y, int vy) {
     y = Y;
     x = 6; // playerX + playerW + r // change to be more dynmaic later TODO
-    dy = 1;
+    dy = vy;
     count = 1;
     active = true;
   }  //spawn ball at desired y value
