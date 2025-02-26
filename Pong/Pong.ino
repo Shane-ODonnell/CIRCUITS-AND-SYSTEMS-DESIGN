@@ -46,6 +46,7 @@ void setup() {
 
   ball.start(playerX + playerW, vy, width, height, display);  //give ball class all the information it needs.
 
+  Serial.println("radius is: " + ball.r);
   drawMap();
   //Serial.println(ball.getX());  // test line
 }

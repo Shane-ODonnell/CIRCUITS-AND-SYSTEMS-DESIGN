@@ -12,9 +12,9 @@ public:
   Adafruit_SSD1306 display;
 
   void start(int X, int vy, int W, int H, Adafruit_SSD1306 screen) {
-    r = floor(width / 8);
-    x = X + r;
     width = W;
+    r = 1;
+    x = X + r;
     height = H;
     dy = vy;
     dx = 2;
