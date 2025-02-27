@@ -13,7 +13,7 @@ public:
 
   void start(int X, int vy, int W, int H, Adafruit_SSD1306 screen) {
     width = W;
-    r = 1;
+    r = floor(width/70);
     x = X + r;
     height = H;
     dy = vy;
@@ -21,9 +21,9 @@ public:
     display = screen;
   }
 
-  void spawn(int Y, int vy, int direction) {
+  void spawn(int Y, int vy, int direction, int X) {
     y = Y;
-    x = 7; // playerX + playerW + r +1// change to be more dynmaic later TODO
+    x = X; // playerX + playerW + r +1// change to be more dynmaic later TODO
     dy = vy * direction;
     count = 1;
     active = true;

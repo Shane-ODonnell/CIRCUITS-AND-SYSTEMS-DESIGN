@@ -7,7 +7,7 @@ void drawPong(int x, int y) {
 void movementPlayer() {
   int stickValue = analogRead(stickY);
   int m = 0;  //Directional multiplier, used to modify the velocity to be positvie/negative or Zero
-
+  
   if (stickValue > 550 && playerY < height) {          //if stick is is being pushed up and there is screen space to move up
     m = 1;                                             //|set direction to be positive
     d = m;    	                                       // set d to be current m for ball spawn purposes
@@ -28,8 +28,8 @@ void drawMap() {
 
 void setupPlayers() {
   //this code initialises the global variables based on the screen dimensions
-  playerH = floor(width / 17.5);
-  playerW = floor(0.5 * playerH);
+  playerH = 2 * floor(width / 17.5);
+  playerW = 0.5 * floor(0.5 * playerH);
 
   playerX = floor(width / 35);
   botX = width - playerX;
@@ -115,7 +115,7 @@ void movementBot() {
 
 void spawnBall() {
   if (!ballInPlay) {
-    ball.spawn(floor(playerY - 0.5 * playerH), vy, d);
+    ball.spawn(floor(playerY - 0.5 * playerH), vy, d, playerX + playerW + ball.r);
     ballInPlay = true;
   }
 }

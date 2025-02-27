@@ -20,13 +20,13 @@ int playerW;        //Width of the paddles/pongs
 int playerX, botX;  //X position for player
 int playerY, botY;  //Pong y positions
 
-int vy = 1;
-int d = 1; // d is for direction the ball will spawn in
+int vy = 2;
+int d = 1;  // d is for direction the ball will spawn in
 bool ballInPlay = false;
 bool clicked = false;
 
 int width = 128;
-int height = 32;
+int height = 64;
 
 //***************************************************************************************
 
@@ -52,7 +52,6 @@ void setup() {
   //Serial.println(ball.getX());  // test line
 }
 
-bool second = false;
 
 void loop() {
   display.clearDisplay();  // Clear the screen ONCE per loop
@@ -64,13 +63,10 @@ void loop() {
     clicked = false;
   }
 
-  if (second) {
-    movementPlayer();  //update playerY every second loop
-  }
 
+  movementPlayer();  //update playerY every second loop
   movementBot();  //update botY
-  second = !second;
-  
+
   /* 
     the player was moving to fast to be anyway controlled with precison. 
     I couldnt make vy a fraction because theres no moving half pixels
