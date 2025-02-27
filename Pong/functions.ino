@@ -10,10 +10,12 @@ void movementPlayer() {
 
   if (stickValue > 550 && playerY < height) {          //if stick is is being pushed up and there is screen space to move up
     m = 1;                                             //|set direction to be positive
+    d = m;    	                                       // set d to be current m for ball spawn purposes
   } else if (stickValue < 450 && playerY > playerH) {  //if stick is is being pushed down and there is screen space to move down
     m = -1;                                            //|set direction to be negative
+    d = m;
   }
-
+  
   playerY = playerY + m * vy;
   //have player move "vy" pixels in the "m" direction
 }
@@ -113,7 +115,7 @@ void movementBot() {
 
 void spawnBall() {
   if (!ballInPlay) {
-    ball.spawn(floor(playerY - 0.5 * playerH), vy);
+    ball.spawn(floor(playerY - 0.5 * playerH), vy, d);
     ballInPlay = true;
   }
 }

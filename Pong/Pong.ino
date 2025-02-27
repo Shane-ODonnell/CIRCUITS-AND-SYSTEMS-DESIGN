@@ -19,6 +19,7 @@ int playerX, botX;  //X position for player
 int playerY, botY;  //Pong y positions
 
 int vy = 1;
+int d = 1; // d is for direction the ball will spawn in
 bool ballInPlay = false;
 bool clicked = false;
 

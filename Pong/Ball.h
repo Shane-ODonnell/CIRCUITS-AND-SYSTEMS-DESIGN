@@ -21,10 +21,10 @@ public:
     display = screen;
   }
 
-  void spawn(int Y, int vy) {
+  void spawn(int Y, int vy, int direction) {
     y = Y;
-    x = 7; // playerX + playerW + r // change to be more dynmaic later TODO
-    dy = vy;
+    x = 7; // playerX + playerW + r +1// change to be more dynmaic later TODO
+    dy = vy * direction;
     count = 1;
     active = true;
   }  //spawn ball at desired y value
