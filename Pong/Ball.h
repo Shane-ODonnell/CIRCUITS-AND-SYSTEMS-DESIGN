@@ -23,7 +23,7 @@ public:
 
   void spawn(int Y, int vy) {
     y = Y;
-    x = 6; // playerX + playerW + r // change to be more dynmaic later TODO
+    x = 7; // playerX + playerW + r // change to be more dynmaic later TODO
     dy = vy;
     count = 1;
     active = true;

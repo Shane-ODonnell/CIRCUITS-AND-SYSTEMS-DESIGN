@@ -7,8 +7,6 @@ TODO LIST
   my screen seems to be fully dead pixels at the bottom and fully yellow at the top.
   the code at the moment is a bit of a mess which isnt helping either.
 */
-
-#include <iostream>
 #include "screen.h"
 #include "Ball.h"
 
@@ -51,6 +49,8 @@ void setup() {
   //Serial.println(ball.getX());  // test line
 }
 
+bool second = false;
+
 void loop() {
   display.clearDisplay();  // Clear the screen ONCE per loop
   int ballX = ball.getX();
@@ -61,9 +61,24 @@ void loop() {
     clicked = false;
   }
 
-  movementPlayer();  //updare playerY
-  movementBot();     //update botY
+  if (second) {
+    movementPlayer();  //update playerY every second loop
+  }
 
+  movementBot();  //update botY
+  second = !second;
+  
+  /* 
+    the player was moving to fast to be anyway controlled with precison. 
+    I couldnt make vy a fraction because theres no moving half pixels
+    the velocity is measured in pixels per frame
+    so if I cant make it travel 0.5 pixels every frame
+    I made it travel 1 pixel but only every second frame 
+    I can have my slower player (0,5 pixel/frame = 1 pixel/ 2 frames) !!!
+
+
+    ALSO by making the bot slower than the ball it makes for a bot that can actually be beaten!
+  */
 
   drawMap();
   showPlayers();
