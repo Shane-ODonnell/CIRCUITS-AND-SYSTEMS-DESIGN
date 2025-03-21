@@ -14,6 +14,8 @@ TODO LIST
 
 int stickY = A1;   //pin that takes in Y value of joyStick
 int clickPin = 2;  //stick that takes in stickClicks
+int stickY2 = A2;   //pin that takes in Y value of joyStick
+int clickPin2 = 3;  //stick that takes in stickClicks
 
 int playerH;        //Height of the paddles/pongs
 int playerW;        //Width of the paddles/pongs
@@ -24,6 +26,7 @@ int vy = 2;
 int d = 1;  // d is for direction the ball will spawn in
 bool ballInPlay = false;
 bool clicked = false;
+bool SinglePlayer = false;
 
 int width = 128;
 int height = 64;
@@ -65,7 +68,12 @@ void loop() {
 
 
   movementPlayer();  //update playerY every second loop
-  movementBot();  //update botY
+
+  if (SinglePlayer) {
+   movementBot();  //update botY
+  } else {
+    movementPlayer2();
+  } 
 
   /* 
     the player was moving to fast to be anyway controlled with precison. 

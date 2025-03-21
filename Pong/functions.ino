@@ -20,6 +20,19 @@ void movementPlayer() {
   //have player move "vy" pixels in the "m" direction
 }
 
+void movementPlayer2() {
+  int stickValue = analogRead(stickY2);
+  int m = 0;  //Directional multiplier, used to modify the velocity to be positvie/negative or Zero
+
+  if (stickValue > 550 && botY < height) {          //if stick is is being pushed up and there is screen space to move up
+    m = 1;                                          //|set direction to be positive
+  } else if (stickValue < 450 && botY > playerH) {  //if stick is is being pushed down and there is screen space to move down
+    m = -1;                                         //|set direction to be negative
+  }
+
+  botY = botY + m * vy;
+  //have player move "vy" pixels in the "m" direction
+}
 void drawMap() {
   //display.drawLine(playerX, 0, playerX, height, SSD1306_WHITE);
   //display.drawLine(botX, 0, botX, height, SSD1306_WHITE);

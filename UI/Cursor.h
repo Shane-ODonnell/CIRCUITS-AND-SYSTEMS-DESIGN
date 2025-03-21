@@ -18,11 +18,5 @@ public:
     display = screen;
   }
 
-
-  // I am *almost* certain this is not used and I just put all of the functions in the functions.ino file
-  drawCursor(int size, int x_position, int y_position) {
-    display.fillCircle(50, 50, size, SSD1306_WHITE);
-  }
-
 };              // close cursor class
 Cursor cursor;  //initialise an instance of the ball class (initialise a ball)

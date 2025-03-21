@@ -1,4 +1,6 @@
 
+//each dot on the menu screen for the snowfall animation is its own object
+
 class Dot {
 public:
 

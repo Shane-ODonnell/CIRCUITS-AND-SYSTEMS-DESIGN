@@ -19,6 +19,7 @@ void movementPlayer() {
   playerY = playerY + m * vy;
   //have player move "vy" pixels in the "m" direction
 }
+
 void movementPlayer2() {
   int stickValue = analogRead(stickY2);
   int m = 0;  //Directional multiplier, used to modify the velocity to be positvie/negative or Zero

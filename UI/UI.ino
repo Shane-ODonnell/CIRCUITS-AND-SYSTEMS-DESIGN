@@ -9,6 +9,7 @@
 int firstRun = 0;
 int state = 0;
 int stickX = A2;
+
 int stickY = A1;   //pin that takes in Y value of joyStick
 int clickPin = 2;  //stick that takes in stickClicks
 
@@ -30,25 +31,14 @@ int height = 64;
 
 // CHANGED JOYSTICK CLICK FOR UI - WILL PROBABLY NOT WORK FOR THE PONG GAME IF WE USE THE SAME ONE
 void joystickClick() {
-
-  if (state == 0) {
-    //cursor.AnimationFrame = 0;
-    //cursor.size = 2;
-    clicked = !clicked;
-    return;
-  }
-
-  // Functionality if we are playing pong
-  else {
-    clicked == true;
-    return;
-  }
+  clicked = !clicked;
 }  //interrupt function for click detection
 
 
 void setup() {
 
   Serial.begin(9600);
+
   setupOLED();     // screen.h
   setupPlayers();  //intialise global variables
 
@@ -57,9 +47,10 @@ void setup() {
   pinMode(stickY, INPUT);
   pinMode(clickPin, INPUT_PULLUP);
 
+  ball.start(playerX + playerW, vy, width, height, display);  //give ball class all the information it needs.
 
   attachInterrupt(digitalPinToInterrupt(clickPin), joystickClick, RISING);
-  drawMap();  //-
+  drawMap();
   initialiseCursor();
 }
 
@@ -76,7 +67,7 @@ void loop() {
 
 
   //---------------- MAIN MENU ----------------//
-  while (state == 0) {
+  if (state == 0) {
     display.clearDisplay();  // Clear the screen ONCE per loop
 
     drawMenu();
@@ -88,13 +79,7 @@ void loop() {
 
 
   //---------------- SINGLEPLAYER ----------------//
-  while (state == 1) {
-
-    // The ball.start function was causing some problems for the main menu so I just put it in here and it will run one time when the single player scene is entered
-    if (firstRun == 0) {
-      ballstart(playerX + playerW, vy, width, height);  //give ball class all the information it needs.
-      firstRun++;
-    }
+  if (state == 1) {
 
     display.clearDisplay();  // Clear the screen ONCE per loop
     int ballX = ball.getX();
@@ -124,7 +109,7 @@ void loop() {
 
 
   //---------------- MULTIPLAYER ----------------//
-  while (state == 2) {
+  if (state == 2) {
     display.clearDisplay();  // Clear the screen ONCE per loop
     display.fillCircle(20, 10, 3, SSD1306_WHITE);
     display.fillCircle(10, 10, 3, SSD1306_WHITE);
@@ -134,7 +119,7 @@ void loop() {
 
 
   //---------------- MISC ----------------//
-  while (state == 3) {
+  if (state == 3) {
     display.clearDisplay();  // Clear the screen ONCE per loop
     display.fillCircle(20, 10, 3, SSD1306_WHITE);
     display.fillCircle(10, 10, 3, SSD1306_WHITE);
