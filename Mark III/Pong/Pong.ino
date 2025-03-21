@@ -52,7 +52,7 @@ void setup() {
   //Serial.println(ball.getX());  // test line
 }
 
-bool second = false;
+bool second = true;
 
 void loop() {
   display.clearDisplay();  // Clear the screen ONCE per loop
@@ -69,7 +69,7 @@ void loop() {
   }
 
   movementBot();  //update botY
-  second = !second;
+  //second = !second;
   
   /* 
     the player was moving to fast to be anyway controlled with precison. 
