@@ -8,10 +8,10 @@ void movementPlayer() {
   int stickValue = analogRead(stickY);
   int m = 0;  //Directional multiplier, used to modify the velocity to be positvie/negative or Zero
   
-  if (stickValue > 550 && playerY < height) {          //if stick is is being pushed up and there is screen space to move up
+  if (player1In == 1 && playerY < height) {          //if stick is is being pushed up and there is screen space to move up
     m = 1;                                             //|set direction to be positive
     d = m;    	                                       // set d to be current m for ball spawn purposes
-  } else if (stickValue < 450 && playerY > playerH) {  //if stick is is being pushed down and there is screen space to move down
+  } else if (player1In == 0 && playerY > playerH) {  //if stick is is being pushed down and there is screen space to move down
     m = -1;                                            //|set direction to be negative
     d = m;
   }
@@ -24,9 +24,9 @@ void movementPlayer2() {
   int stickValue = analogRead(stickY2);
   int m = 0;  //Directional multiplier, used to modify the velocity to be positvie/negative or Zero
 
-  if (stickValue > 550 && botY < height) {          //if stick is is being pushed up and there is screen space to move up
+  if (player2In == 1 > 550 && botY < height) {          //if stick is is being pushed up and there is screen space to move up
     m = 1;                                          //|set direction to be positive
-  } else if (stickValue < 450 && botY > playerH) {  //if stick is is being pushed down and there is screen space to move down
+  } else if (player2In == 0 && botY > playerH) {  //if stick is is being pushed down and there is screen space to move down
     m = -1;                                         //|set direction to be negative
   }
 

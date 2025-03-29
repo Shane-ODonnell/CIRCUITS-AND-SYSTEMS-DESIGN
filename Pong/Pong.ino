@@ -11,9 +11,26 @@ TODO LIST
 */
 #include "screen.h"
 #include "Ball.h"
+#include <WiFiS3.h>
 
-int stickY = A1;   //pin that takes in Y value of joyStick
-int clickPin = 2;  //stick that takes in stickClicks
+// WiFi details
+char ssid[] = "giveTeam1fullmarks";
+char pass[] = "giveTeam1fullmarks";
+
+// Create a WiFi server on port 5200
+WiFiServer server(5200);
+
+// Declare clients for two players
+WiFiClient Player_1;
+WiFiClient Player_2;
+
+// Define desired IP addresses for each player
+IPAddress desiredPlayer1IP(192, 168, 4, 2);
+IPAddress desiredPlayer2IP(192, 168, 4, 3);
+
+
+int stickY = A1;    //pin that takes in Y value of joyStick
+int clickPin = 2;   //stick that takes in stickClicks
 int stickY2 = A2;   //pin that takes in Y value of joyStick
 int clickPin2 = 3;  //stick that takes in stickClicks
 
@@ -26,11 +43,13 @@ int vy = 2;
 int d = 1;  // d is for direction the ball will spawn in
 bool ballInPlay = false;
 bool clicked = false;
-bool SinglePlayer = false;
+bool SinglePlayer = true;
 
 int width = 128;
 int height = 64;
 
+int player1In;
+int player2In;
 //***************************************************************************************
 
 void joystickClick() {
@@ -40,6 +59,8 @@ void joystickClick() {
 void setup() {
 
   Serial.begin(9600);
+
+  networkingSetup();
 
   setupOLED();     // screen.h
   setupPlayers();  //intialise global variables
@@ -57,6 +78,13 @@ void setup() {
 
 
 void loop() {
+
+  checkServer();
+
+  if (player1In == 2 || player2In == 2) {
+    clicked == true;
+  }
+
   display.clearDisplay();  // Clear the screen ONCE per loop
   int ballX = ball.getX();
   bool collision = false;
@@ -70,10 +98,12 @@ void loop() {
   movementPlayer();  //update playerY every second loop
 
   if (SinglePlayer) {
-   movementBot();  //update botY
+    movementBot();  //update botY
+    ensureClientConnected(Player_1, desiredPlayer1IP, "Player 1");
   } else {
     movementPlayer2();
-  } 
+    ensureClientConnected(Player_2, desiredPlayer2IP, "Player 2");
+  }
 
   /* 
     the player was moving to fast to be anyway controlled with precison. 
